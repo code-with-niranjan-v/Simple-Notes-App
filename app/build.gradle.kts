@@ -42,6 +42,8 @@ android {
 
 dependencies {
 
+    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
     //ViewModel & LiveData & Annotation Processor
     val lifecycle_version = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")

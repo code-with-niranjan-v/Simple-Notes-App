@@ -19,4 +19,10 @@ interface NotesDao {
 
     @Delete
     fun delete(notes: NotesData)
+
+    @Query("select * from notes_table")
+    fun getNotesData():List<NotesData>
+
+    @Query("select * from notes_table order by id desc")
+    fun getNotesByDesc():List<NotesData>
 }
