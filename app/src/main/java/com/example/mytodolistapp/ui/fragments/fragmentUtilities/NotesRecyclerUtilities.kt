@@ -16,6 +16,9 @@ class NotesViewHolder(private val itemBinding:NotesListRvBinding):ViewHolder(ite
         itemBinding.imgDelete.setOnClickListener {
             listener.onClickDelete(notesData)
         }
+        itemBinding.root.setOnClickListener{
+            listener.onClickView(notesData)
+        }
 
     }
 
@@ -42,4 +45,5 @@ class NotesRecyclerAdapter(val listOfNotes:List<NotesData>,private val listener:
 
 interface OnClickListener{
     fun onClickDelete(notesData: NotesData)
+    fun onClickView(notesData: NotesData)
 }

@@ -32,6 +32,22 @@ class NotesAdd : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        parentFragmentManager.setFragmentResultListener("notesData",viewLifecycleOwner){request,data->
+            val data = data.getSerializable("note") as NotesData
+            if (data.id != null && !data.title.isNullOrBlank()){
+                notesAddBinding.etTitle.setText(data.title)
+                notesAddBinding.etDescription.setText(data.description)
+                notesAddBinding.btnAdd.setOnClickListener {
+                    val title = notesAddBinding.etTitle.text.toString()
+                    val description = notesAddBinding.etDescription.text.toString()
+
+                    viewModel.insertNotes(NotesData(id = data.id,title = title, description = description))
+                    replaceFragment(NotesList())
+                }
+            }
+
+
+        }
         notesAddBinding.btnAdd.setOnClickListener {
             val title = notesAddBinding.etTitle.text.toString()
             val description = notesAddBinding.etDescription.text.toString()
@@ -39,6 +55,7 @@ class NotesAdd : Fragment() {
             viewModel.insertNotes(NotesData(title = title, description = description))
             replaceFragment(NotesList())
         }
+
 
     }
 

@@ -58,5 +58,14 @@ class NotesList : Fragment(),OnClickListener {
         viewModel.onDelete(notesData)
     }
 
+    override fun onClickView(notesData: NotesData) {
+        val bundle = Bundle()
+        bundle.putSerializable("note",notesData)
+        parentFragmentManager.setFragmentResult("notesData",bundle)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container,NotesAdd())
+            .commit()
+    }
+
 
 }
