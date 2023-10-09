@@ -56,6 +56,8 @@ dependencies {
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.46")
     kapt("com.google.dagger:hilt-android-compiler:2.46")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.0")
 
     //RoomDatabase
     val room_version = "2.5.2"

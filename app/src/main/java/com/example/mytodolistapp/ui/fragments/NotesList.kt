@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytodolistapp.R
@@ -16,14 +17,15 @@ import com.example.mytodolistapp.ui.fragments.fragmentUtilities.NotesRecyclerAda
 import com.example.mytodolistapp.ui.fragments.fragmentUtilities.OnClickListener
 import com.example.mytodolistapp.viewmodel.NoteViewModelFactory
 import com.example.mytodolistapp.viewmodel.NotesViewModel
+import com.example.mytodolistapp.viewmodel.NotesViewModel_Factory
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class NotesList : Fragment(),OnClickListener {
-    @Inject
-    lateinit var viewModelFactory:NoteViewModelFactory
-    private lateinit var viewModel: NotesViewModel
+
+    private val viewModel: NotesViewModel by viewModels()
     private lateinit var notesListBinding: FragmentNotesListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +39,6 @@ class NotesList : Fragment(),OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this,viewModelFactory).get(NotesViewModel::class.java)
 
         viewModel.getNotes().observe(viewLifecycleOwner){
             val adapter = NotesRecyclerAdapter(it,this)

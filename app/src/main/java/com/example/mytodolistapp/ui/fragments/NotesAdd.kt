@@ -1,10 +1,12 @@
 package com.example.mytodolistapp.ui.fragments
 
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.mytodolistapp.R
 import com.example.mytodolistapp.data.NotesData
@@ -16,10 +18,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NotesAdd : Fragment() {
-    @Inject
-    lateinit var viewModelFactory: NoteViewModelFactory
-    private lateinit var notesAddBinding: FragmentNotesAddBinding
 
+    private lateinit var notesAddBinding: FragmentNotesAddBinding
+    private val viewModel:NotesViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +32,6 @@ class NotesAdd : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel = ViewModelProvider(this,viewModelFactory).get(NotesViewModel::class.java)
         notesAddBinding.btnAdd.setOnClickListener {
             val title = notesAddBinding.etTitle.text.toString()
             val description = notesAddBinding.etDescription.text.toString()
