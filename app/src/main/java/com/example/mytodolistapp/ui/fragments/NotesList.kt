@@ -3,8 +3,12 @@ package com.example.mytodolistapp.ui.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +31,7 @@ import javax.inject.Inject
 class NotesList : Fragment(),OnClickListener {
 
     private val viewModel: NotesViewModel by viewModels()
+    private lateinit var adapter:NotesRecyclerAdapter
     private lateinit var notesListBinding: FragmentNotesListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +47,7 @@ class NotesList : Fragment(),OnClickListener {
 
 
         viewModel.getNotes().observe(viewLifecycleOwner){
-            val adapter = NotesRecyclerAdapter(it,this)
+            adapter = NotesRecyclerAdapter(it,this)
             notesListBinding.recyclerView.adapter = adapter
             notesListBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
@@ -53,7 +58,15 @@ class NotesList : Fragment(),OnClickListener {
                 .commit()
         }
 
+
+
+
+
+
+
     }
+
+
 
     override fun onClickDelete(notesData: NotesData) {
         viewModel.onDelete(notesData)

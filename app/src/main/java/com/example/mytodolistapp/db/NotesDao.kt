@@ -25,4 +25,8 @@ interface NotesDao {
 
     @Query("select * from notes_table order by id desc")
     fun getNotesByDesc():List<NotesData>
+
+    @Query("select * from notes_table where title like :searchQuery")
+    fun onSearchNotes(searchQuery: String):LiveData<List<NotesData>>
+
 }

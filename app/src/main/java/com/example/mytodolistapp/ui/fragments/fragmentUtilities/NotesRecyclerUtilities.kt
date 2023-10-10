@@ -26,7 +26,8 @@ class NotesViewHolder(private val itemBinding:NotesListRvBinding):ViewHolder(ite
 
 }
 
-class NotesRecyclerAdapter(val listOfNotes:List<NotesData>,private val listener:OnClickListener):Adapter<NotesViewHolder>(){
+class NotesRecyclerAdapter(private var listOfNotes:List<NotesData>,private val listener:OnClickListener):Adapter<NotesViewHolder>(){
+    private lateinit var oldData:List<NotesData>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val binding = NotesListRvBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -44,6 +45,16 @@ class NotesRecyclerAdapter(val listOfNotes:List<NotesData>,private val listener:
         holder.bindData(listOfNotes[position],listener,getRandomLightColorCode())
     }
 
+
+    fun setData(listOfNotes: List<NotesData>){
+        oldData = this.listOfNotes
+        this.listOfNotes = listOfNotes
+
+    }
+
+    fun reload(){
+        this.listOfNotes = oldData
+    }
     private fun getRandomLightColorCode(): Int {
         val alpha = 255 // You can adjust the alpha value (transparency) if needed
         val minBrightness = 192 // Adjust this value to control the minimum brightness

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.mytodolistapp.R
@@ -13,6 +14,7 @@ import com.example.mytodolistapp.data.NotesData
 import com.example.mytodolistapp.databinding.FragmentNotesAddBinding
 import com.example.mytodolistapp.viewmodel.NoteViewModelFactory
 import com.example.mytodolistapp.viewmodel.NotesViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,12 +50,27 @@ class NotesAdd : Fragment() {
 
 
         }
+
         notesAddBinding.btnAdd.setOnClickListener {
             val title = notesAddBinding.etTitle.text.toString()
             val description = notesAddBinding.etDescription.text.toString()
 
-            viewModel.insertNotes(NotesData(title = title, description = description))
+            if(!title.isNullOrBlank() && !description.isNullOrBlank()){
+                viewModel.insertNotes(NotesData(title = title, description = description))
+
+            }
+            else{
+                Snackbar.make(requireView(),"Empty Notes Deleted",Snackbar.LENGTH_INDEFINITE).show()
+            }
             replaceFragment(NotesList())
+        }
+
+        notesAddBinding.apply {
+            imgBack.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container,NotesList())
+                    .commit()
+            }
         }
 
 

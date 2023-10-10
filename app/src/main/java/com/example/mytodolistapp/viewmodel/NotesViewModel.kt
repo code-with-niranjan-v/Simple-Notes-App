@@ -25,4 +25,6 @@ class NotesViewModel @Inject constructor(
     fun onDelete(notesData: NotesData) = CoroutineScope(Dispatchers.IO).launch {
         repo.onDelete(notesData)
     }
+
+    fun onSearchNotes(searchQuery: String):LiveData<List<NotesData>> = repo.onSearchNotes(searchQuery)
 }
