@@ -18,6 +18,7 @@ import com.example.mytodolistapp.ui.fragments.fragmentUtilities.OnClickListener
 import com.example.mytodolistapp.viewmodel.NoteViewModelFactory
 import com.example.mytodolistapp.viewmodel.NotesViewModel
 import com.example.mytodolistapp.viewmodel.NotesViewModel_Factory
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -56,6 +57,11 @@ class NotesList : Fragment(),OnClickListener {
 
     override fun onClickDelete(notesData: NotesData) {
         viewModel.onDelete(notesData)
+        Snackbar.make(requireView(),"Notes Deleted",Snackbar.LENGTH_INDEFINITE)
+            .setAction("Undo"){
+                viewModel.insertNotes(notesData)
+            }
+            .show()
     }
 
     override fun onClickView(notesData: NotesData) {

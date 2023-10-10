@@ -13,6 +13,6 @@
     </style>
     
     <style name="FabStyle1">
-        <item name="cornerSize">20%</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>
